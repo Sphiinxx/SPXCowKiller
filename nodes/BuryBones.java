@@ -7,6 +7,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSItem;
+import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 
@@ -19,6 +20,7 @@ public class BuryBones extends Node {
 
     @Override
     public void execute() {
+        Variables.STATUS = "Burying...";
         RSItem[] bones = Inventory.find(BONES_ID);
         if (bones.length > 0) {
             Clicking.click("Bury", bones[0]);
@@ -33,7 +35,7 @@ public class BuryBones extends Node {
 
     @Override
     public boolean validate() {
-        return !Player.getRSPlayer().isInCombat() && Inventory.getCount(BONES_ID) > 0;
+        return !Player.getRSPlayer().isInCombat() && Inventory.getCount(BONES_ID) > 0 && Variables.buryBones;
     }
 
 }

@@ -1,7 +1,5 @@
 package scripts.SPXCowKiller;
 
-import scripts.SPXCowKiller.nodes.BuryBones;
-
 import javax.swing.*;
 
 /**
@@ -105,6 +103,12 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
+        if (buryBones.isSelected()) {
+            Variables.buryBones = true;
+        } else {
+            Variables.bankHides = true;
+        }
+        Variables.guiComplete = true;
         setVisible(false);
     }
 
