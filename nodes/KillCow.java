@@ -6,7 +6,7 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSNPC;
-import scripts.SPXCowKiller.Main;
+import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 
@@ -17,14 +17,19 @@ public class KillCow extends Node {
 
     private RSNPC[] cow;
 
+    public KillCow(Variables v) {
+        super(v);
+    }
+
+
     @Override
     public void execute() {
-        Main.status = "Killing...";
         cow = NPCs.findNearest("Cow");
         if (cow.length > 0) {
             if (!cow[0].isOnScreen()) {
                 walkToCow();
             } else {
+                vars.status = "Killing...";
                 attackCow();
             }
         }

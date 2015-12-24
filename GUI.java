@@ -7,11 +7,13 @@ import javax.swing.*;
  */
 public class GUI extends javax.swing.JFrame {
 
-    public GUI() {
+    private Variables variables;
+
+    public GUI(Variables variables) {
+        this.variables = variables;
         initComponents();
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
         try {
@@ -104,12 +106,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
         if (buryBones.isSelected()) {
-            Main.buryBones = true;
+            variables.buryBones = true;
         }
-        if (bankHides.isSelected()){
-            Main.bankHides = true;
+        if (bankHides.isSelected()) {
+            variables.bankHides = true;
         }
-        Main.guiComplete = true;
+        variables.guiComplete = true;
         setVisible(false);
     }
 

@@ -9,7 +9,7 @@ import org.tribot.api2007.Combat;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
-import scripts.SPXCowKiller.Main;
+import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 import java.util.ArrayList;
@@ -22,13 +22,14 @@ public class PickupItems extends Node {
     private String[] pickupItems;
     private RSGroundItem[] groundItems;
 
-    public PickupItems() {
-        ArrayList<String> itemList = new ArrayList<String>();
-        if (Main.buryBones) {
+    public PickupItems(Variables v) {
+        super(v);
+        ArrayList<String> itemList = new ArrayList<>();
+        if (vars.buryBones) {
             System.out.println("Added bones");
             itemList.add("Bones");
         }
-        if (Main.bankHides) {
+        if (vars.bankHides) {
             System.out.println("Added Cowhide");
             itemList.add("Cowhide");
         }
@@ -38,25 +39,24 @@ public class PickupItems extends Node {
 
     @Override
     public void execute() {
-        Main.status = "Picking up...";
         groundItems = GroundItems.findNearest(pickupItems);
-        if (groundItems.length > 0) {
+        if (!groundItems[0].isOnScreen()) {
             walkToItem();
         } else {
+            vars.status = "Picking up...";
             pickupItems();
         }
     }
 
     private void walkToItem() {
-        if (!groundItems[0].isOnScreen()) {
-            if (Walking.walkTo(groundItems[0])) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return groundItems[0].isOnScreen();
-                    }
-                }, General.random(750, 1000));
-            }
+        if (Walking.walkTo(groundItems[0])) {
+            Timing.waitCondition(new Condition() {
+                @Override
+                public boolean active() {
+                    return groundItems[0].isOnScreen();
+                }
+            }, General.random(750, 1000));
+
         }
     }
 

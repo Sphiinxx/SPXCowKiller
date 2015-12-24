@@ -6,7 +6,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.Main;
+import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 /**
@@ -14,9 +14,13 @@ import scripts.SPXCowKiller.api.Node;
  */
 public class BankHides extends Node {
 
+    public BankHides(Variables v) {
+        super(v);
+    }
+
     @Override
     public void execute() {
-        Main.status = "Banking...";
+        vars.status = "Banking...";
         if (Banking.isInBank()) {
             openBank();
         } else {
@@ -59,7 +63,7 @@ public class BankHides extends Node {
 
     @Override
     public boolean validate() {
-        return Main.bankHides &&
+        return vars.bankHides &&
                 Inventory.isFull();
     }
 

@@ -10,10 +10,7 @@ import org.tribot.script.interfaces.Painting;
 import scripts.SPXCowKiller.api.Node;
 import scripts.SPXCowKiller.nodes.*;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -23,31 +20,17 @@ import java.util.Collections;
 @ScriptManifest(authors = "Sphiinx", category = "Combat", name = "SPX Cow Killer", version = 0.1)
 public class Main extends Script implements Painting {
 
-    public final Color color1 = new Color(0, 169, 194);
-    public final Color color2 = new Color(255, 255, 255);
-    public final Font font1 = new Font("Segoe Script", 0, 20);
-    public final long startTime = System.currentTimeMillis();
-    public final Font font2 = new Font("Arial", 0, 15);
-    public final Image img1 = getImage("http://i.imgur.com/fRrLAWr.png");
-    public final RenderingHints antialiasing = new RenderingHints(
-            RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    public ArrayList<Node> nodes = new ArrayList<>();
-    public GUI gui = new GUI();
-    public int startLevels;
-    public int startExp;
-    public double version;
-    public static String status;
-    public static boolean buryBones;
-    public static boolean bankHides;
-    public static boolean guiComplete;
+    private Variables variables = new Variables();
+    private ArrayList<Node> nodes = new ArrayList<>();
+    public GUI gui = new GUI(variables);
 
     @Override
     public void run() {
         initializeGui();
         getStartLevels();
         getStartExp();
-        Collections.addAll(nodes, new BankHides(), new WalkToCows(), new PickupItems(), new BuryBones(), new KillCow(), new DropUnwanted());
-        version = getClass().getAnnotation(ScriptManifest.class).version();
+        Collections.addAll(nodes, new BankHides(variables), new WalkToCows(variables), new PickupItems(variables), new BuryBones(variables), new KillCow(variables), new DropUnwanted(variables));
+        variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }
 
@@ -68,7 +51,7 @@ public class Main extends Script implements Painting {
             public void run() {
                 try {
                     sleep(50);
-                    status = "Initializing...";
+                    variables.status = "Initializing...";
                     gui.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -77,51 +60,43 @@ public class Main extends Script implements Painting {
         });
         do
             sleep(10);
-        while (!guiComplete);
+        while (!variables.guiComplete);
     }
 
     private void getStartLevels() {
-        startLevels = Skills.getActualLevel(Skills.SKILLS.STRENGTH) +
+        variables.startLevels = Skills.getActualLevel(Skills.SKILLS.STRENGTH) +
                 Skills.getActualLevel(Skills.SKILLS.ATTACK) +
                 Skills.getActualLevel(Skills.SKILLS.DEFENCE);
     }
 
     private void getStartExp() {
-        startExp = Skills.getXP(Skills.SKILLS.STRENGTH) +
+        variables.startExp = Skills.getXP(Skills.SKILLS.STRENGTH) +
                 Skills.getXP(Skills.SKILLS.ATTACK) +
                 Skills.getXP(Skills.SKILLS.DEFENCE);
     }
 
-    public static Image getImage(String url) {
-        try {
-            return ImageIO.read(new URL(url));
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
     public void onPaint(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
-        g.setRenderingHints(antialiasing);
+        g.setRenderingHints(Constants.antialiasing);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            long timeRan = System.currentTimeMillis() - startTime;
+            long timeRan = System.currentTimeMillis() - Constants.startTime;
             int getCurrentLevels = Skills.getActualLevel(Skills.SKILLS.ATTACK) + Skills.getActualLevel(Skills.SKILLS.STRENGTH) + Skills.getActualLevel(Skills.SKILLS.DEFENCE);
             int getCurrentExp = Skills.getXP(Skills.SKILLS.STRENGTH) + Skills.getXP(Skills.SKILLS.ATTACK) + Skills.getXP(Skills.SKILLS.DEFENCE);
-            int getGainedLevels = getCurrentLevels - startLevels;
-            int getGainedExp = getCurrentExp - startExp;
+            int getGainedLevels = getCurrentLevels - variables.startLevels;
+            int getGainedExp = getCurrentExp - variables.startExp;
 
-            g.drawImage(img1, 2, 200, null);
-            g.setFont(font1);
-            g.setColor(color1);
+            g.drawImage(Constants.img1, 2, 200, null);
+            g.setFont(Constants.font1);
+            g.setColor(Constants.color1);
             g.drawString("- Cow Killer", 58, 226);
-            g.setFont(font2);
-            g.setColor(color2);
+            g.setFont(Constants.font2);
+            g.setColor(Constants.color2);
             g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);
             g.drawString("Levels Gained: " + getGainedLevels, 11, 272);
             g.drawString("Gained Exp: " + getGainedExp, 11, 292);
-            g.drawString("Status: " + status, 11, 312);
-            g.drawString("v" + version, 205, 330);
+            g.drawString("Status: " + variables.status, 11, 312);
+            g.drawString("v" + variables.version, 205, 330);
         }
     }
 

@@ -5,13 +5,17 @@ import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
-import scripts.SPXCowKiller.Main;
+import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
 public class WalkToCows extends Node {
+
+    public WalkToCows(Variables v) {
+        super(v);
+    }
 
     private final RSArea COW_PEN_AREA = new RSArea(new RSTile[]{
             new RSTile(3254, 3256, 0),
@@ -29,7 +33,7 @@ public class WalkToCows extends Node {
 
     @Override
     public void execute() {
-        Main.status = "Walking to cows...";
+        vars.status = "Walking to cows...";
         WebWalking.walkTo(COW_PEN_AREA.getRandomTile());
     }
 

@@ -5,7 +5,7 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
-import scripts.SPXCowKiller.Main;
+import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 import java.util.ArrayList;
@@ -17,13 +17,14 @@ public class DropUnwanted extends Node {
 
     private String[] unwantedItems;
 
-    public DropUnwanted() {
+    public DropUnwanted(Variables v) {
+        super(v);
         ArrayList<String> itemList = new ArrayList<String>();
         itemList.add("Raw beef");
-        if (Main.buryBones) {
+        if (vars.buryBones) {
             itemList.add("Cowhide");
         }
-        if (Main.bankHides) {
+        if (vars.bankHides) {
             itemList.add("Bones");
         }
 
@@ -33,7 +34,7 @@ public class DropUnwanted extends Node {
 
     @Override
     public void execute() {
-        Main.status = "Dropping...";
+        vars.status = "Dropping...";
         if (Inventory.drop(unwantedItems) > 0) {
             Timing.waitCondition(new Condition() {
                 @Override
@@ -48,7 +49,6 @@ public class DropUnwanted extends Node {
         return Inventory.getCount(unwantedItems) > 0 &&
                 !Player.getRSPlayer().isInCombat();
     }
-
 
 }
 
