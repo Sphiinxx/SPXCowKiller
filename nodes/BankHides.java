@@ -7,7 +7,6 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXCowKiller.Main;
-import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
 
 /**
@@ -17,44 +16,50 @@ public class BankHides extends Node {
 
     @Override
     public void execute() {
-        Variables.STATUS = "Banking...";
+        Main.status = "Banking...";
         if (Banking.isInBank()) {
-            System.out.println("Running 1");
-            if (Banking.isBankScreenOpen()) {
-                System.out.println("Running 2");
-                Banking.depositAll();
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return Inventory.getCount("Cowhide") < 1;
-                    }
-                }, General.random(750, 1000));
-            } else {
-                System.out.println("Running 3");
-                Banking.openBank();
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return Banking.isBankScreenOpen();
-                    }
-                }, General.random(750, 1000));
-            }
+            openBank();
         } else {
-            System.out.println("Running 4");
-            if (WebWalking.walkToBank()) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return Banking.isInBank();
-                    }
-                }, General.random(750, 1000));
+            walkToBank();
+        }
+    }
+
+    private void openBank() {
+            if (Banking.isBankScreenOpen()) {
+                if (Banking.depositAll() > 0) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            return Inventory.getCount("Cowhide") < 1;
+                        }
+                    }, General.random(750, 1000));
+                }
+            } else {
+                if (Banking.openBank()) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            return Banking.isBankScreenOpen();
+                        }
+                    }, General.random(750, 1000));
+                }
             }
+    }
+
+    private void walkToBank() {
+        if (WebWalking.walkToBank()) {
+            Timing.waitCondition(new Condition() {
+                @Override
+                public boolean active() {
+                    return Banking.isInBank();
+                }
+            }, General.random(750, 1000));
         }
     }
 
     @Override
     public boolean validate() {
-        return Variables.bankHides &&
+        return Main.bankHides &&
                 Inventory.isFull();
     }
 

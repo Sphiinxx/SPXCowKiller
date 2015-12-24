@@ -5,7 +5,7 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.Main;
 import scripts.SPXCowKiller.api.Node;
 
 import java.util.ArrayList;
@@ -15,34 +15,37 @@ import java.util.ArrayList;
  */
 public class DropUnwanted extends Node {
 
+    private String[] unwantedItems;
+
     public DropUnwanted() {
         ArrayList<String> itemList = new ArrayList<String>();
         itemList.add("Raw beef");
-        if (Variables.buryBones) {
+        if (Main.buryBones) {
             itemList.add("Cowhide");
         }
-        if (Variables.bankHides) {
+        if (Main.bankHides) {
             itemList.add("Bones");
         }
 
-        Variables.unwantedItems = new String[itemList.size()];
-        Variables.unwantedItems = itemList.toArray(Variables.unwantedItems);
+        unwantedItems = new String[itemList.size()];
+        unwantedItems = itemList.toArray(unwantedItems);
     }
 
     @Override
     public void execute() {
-            Variables.STATUS = "Dropping...";
-            Inventory.drop(Variables.unwantedItems);
+        Main.status = "Dropping...";
+        if (Inventory.drop(unwantedItems) > 0) {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
-                    return Inventory.getCount(Variables.unwantedItems) < 1;
+                    return Inventory.getCount(unwantedItems) < 1;
                 }
             }, General.random(750, 1000));
+        }
     }
 
     public boolean validate() {
-        return Inventory.getCount(Variables.unwantedItems) > 0 &&
+        return Inventory.getCount(unwantedItems) > 0 &&
                 !Player.getRSPlayer().isInCombat();
     }
 

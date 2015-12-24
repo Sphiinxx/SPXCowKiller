@@ -5,7 +5,7 @@ import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.Main;
 import scripts.SPXCowKiller.api.Node;
 
 /**
@@ -29,7 +29,7 @@ public class WalkToCows extends Node {
 
     @Override
     public void execute() {
-        Variables.STATUS = "Walking to cows...";
+        Main.status = "Walking to cows...";
         WebWalking.walkTo(COW_PEN_AREA.getRandomTile());
     }
 

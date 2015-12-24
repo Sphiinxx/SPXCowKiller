@@ -104,11 +104,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
         if (buryBones.isSelected()) {
-            Variables.buryBones = true;
-        } else {
-            Variables.bankHides = true;
+            Main.buryBones = true;
         }
-        Variables.guiComplete = true;
+        if (bankHides.isSelected()){
+            Main.bankHides = true;
+        }
+        Main.guiComplete = true;
         setVisible(false);
     }
 

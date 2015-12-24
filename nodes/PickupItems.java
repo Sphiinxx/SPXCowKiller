@@ -9,7 +9,7 @@ import org.tribot.api2007.Combat;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.Main;
 import scripts.SPXCowKiller.api.Node;
 
 import java.util.ArrayList;
@@ -19,51 +19,61 @@ import java.util.ArrayList;
  */
 public class PickupItems extends Node {
 
+    private String[] pickupItems;
+    private RSGroundItem[] groundItems;
+
     public PickupItems() {
         ArrayList<String> itemList = new ArrayList<String>();
-        if (Variables.buryBones) {
+        if (Main.buryBones) {
             System.out.println("Added bones");
             itemList.add("Bones");
         }
-        if (Variables.bankHides) {
+        if (Main.bankHides) {
             System.out.println("Added Cowhide");
             itemList.add("Cowhide");
         }
-
-        Variables.pickupItems = new String[itemList.size()];
-        Variables.pickupItems = itemList.toArray(Variables.pickupItems);
+        pickupItems = new String[itemList.size()];
+        pickupItems = itemList.toArray(pickupItems);
     }
 
     @Override
     public void execute() {
-        Variables.STATUS = "Picking up...";
-        RSGroundItem[] groundItems = GroundItems.findNearest(Variables.pickupItems);
+        Main.status = "Picking up...";
+        groundItems = GroundItems.findNearest(pickupItems);
         if (groundItems.length > 0) {
-            if (!groundItems[0].isOnScreen()) {
-                if (Walking.walkTo(groundItems[0])) {
-                    Timing.waitCondition(new Condition() {
-                        @Override
-                        public boolean active() {
-                            return groundItems[0].isOnScreen();
-                        }
-                    }, General.random(750, 1000));
-                }
-            } else {
-                Camera.turnToTile(groundItems[0]);
-                if (!Player.isMoving()) {
-                    RSItemDefinition definition = groundItems[0].getDefinition();
-                    if(definition != null){
-                        String name = definition.getName();
-                        if(name != null){
-                            if (groundItems[0].click("Take " + name)) {
-                                Timing.waitCondition(new Condition() {
-                                    @Override
-                                    public boolean active() {
-                                        return Player.isMoving();
-                                    }
-                                }, General.random(750, 1000));
+            walkToItem();
+        } else {
+            pickupItems();
+        }
+    }
+
+    private void walkToItem() {
+        if (!groundItems[0].isOnScreen()) {
+            if (Walking.walkTo(groundItems[0])) {
+                Timing.waitCondition(new Condition() {
+                    @Override
+                    public boolean active() {
+                        return groundItems[0].isOnScreen();
+                    }
+                }, General.random(750, 1000));
+            }
+        }
+    }
+
+    private void pickupItems() {
+        Camera.turnToTile(groundItems[0]);
+        if (!Player.isMoving()) {
+            RSItemDefinition definition = groundItems[0].getDefinition();
+            if (definition != null) {
+                String name = definition.getName();
+                if (name != null) {
+                    if (groundItems[0].click("Take " + name)) {
+                        Timing.waitCondition(new Condition() {
+                            @Override
+                            public boolean active() {
+                                return Player.isMoving();
                             }
-                        }
+                        }, General.random(750, 1000));
                     }
                 }
             }
@@ -72,7 +82,7 @@ public class PickupItems extends Node {
 
     @Override
     public boolean validate() {
-        RSGroundItem[] groundItems = GroundItems.findNearest(Variables.pickupItems);
+        RSGroundItem[] groundItems = GroundItems.findNearest(pickupItems);
 
         return groundItems.length > 0 &&
                 groundItems[0].getPosition().distanceTo(Player.getPosition()) <= 4 &&
