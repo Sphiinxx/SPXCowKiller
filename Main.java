@@ -91,6 +91,7 @@ public class Main extends Script implements Painting {
             g.setColor(Constants.color1);
             g.setFont(Constants.font2);
             g.setColor(Constants.color2);
+            g.drawString("- Cow Killer", 68, 226);
             g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);
             g.drawString("Levels Gained: " + getGainedLevels, 11, 272);
             g.drawString("Gained Exp: " + getGainedExp, 11, 292);
