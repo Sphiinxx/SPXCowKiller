@@ -80,26 +80,30 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
 
     public void onPaint(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
-        g.setRenderingHints(Constants.antialiasing);
+        g.setRenderingHints(Constants.ANTIALIASING);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            long timeRan = System.currentTimeMillis() - Constants.startTime;
+            long timeRan = System.currentTimeMillis() - Constants.START_TIME;
             int getCurrentLevels = Skills.getActualLevel(Skills.SKILLS.ATTACK) + Skills.getActualLevel(Skills.SKILLS.STRENGTH) + Skills.getActualLevel(Skills.SKILLS.DEFENCE);
             int getCurrentExp = Skills.getXP(Skills.SKILLS.STRENGTH) + Skills.getXP(Skills.SKILLS.ATTACK) + Skills.getXP(Skills.SKILLS.DEFENCE);
             int getGainedLevels = getCurrentLevels - variables.startLevels;
             int getGainedExp = getCurrentExp - variables.startExp;
 
-            g.drawImage(Constants.img1, 2, 200, null);
-            g.setFont(Constants.font1);
-            g.setColor(Constants.color1);
-            g.setFont(Constants.font2);
-            g.setColor(Constants.color2);
-            g.drawString("- Cow Killer", 68, 226);
-            g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);
-            g.drawString("Levels Gained: " + getGainedLevels, 11, 272);
-            g.drawString("Gained Exp: " + getGainedExp, 11, 292);
-            g.drawString("Status: " + variables.status, 11, 312);
-            g.drawString("v" + variables.version, 205, 330);
+            g.setColor(Constants.BLACK_COLOR);
+            g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
+            g.setColor(Constants.RED_COLOR);
+            g.drawRoundRect(9, 218, 202, 112, 8, 8); // Red outline
+            g.fillRoundRect(13, 223, 194, 22, 8, 8); // Title background
+            g.setFont(Constants.TITLE_FONT);
+            g.setColor(Color.WHITE);
+            g.drawString("[SPX] Cow Killer", 18, 239);
+            g.setFont(Constants.TEXT_FONT);
+            g.drawString("Runtime: " + Timing.msToString(timeRan), 14, 260);
+            g.drawString("Levels Gained: " + getGainedLevels, 14, 276);
+            g.drawString("Gained Exp: " + getGainedExp, 14, 293);
+            g.drawString("Status: " + variables.status, 14, 310);
+            g.drawString("v" + variables.version, 185, 326);
+
         }
     }
 
@@ -112,7 +116,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         graphics.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 1); // Right x axis line Stroke
         graphics.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 1); // left x axis line Stroke
         graphics.fillOval(Mouse.getPos().x - 3, Mouse.getPos().y - 3, 7, 7); // Center dot stroke
-        graphics.setColor(scripts.SPXAIOPlanker.Constants.MOUSE_COLOR);
+        graphics.setColor(Constants.RED_COLOR);
         graphics.drawRect(Mouse.getPos().x - 12, Mouse.getPos().y - 12, 25, 25); // Square rectangle
         graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 0, 500); // Top y axis Line
         graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 0, 500); // Bottom y axis Line
