@@ -26,11 +26,13 @@ public class KillCow extends Node {
     public void execute() {
         cow = NPCs.findNearest("Cow");
         if (cow.length > 0) {
-            if (!cow[0].isOnScreen()) {
-                walkToCow();
-            } else {
-                vars.status = "Killing...";
-                attackCow();
+            if (!cow[0].isInCombat()) {
+                if (!cow[0].isOnScreen()) {
+                    walkToCow();
+                } else {
+                    vars.status = "Killing...";
+                    attackCow();
+                }
             }
         }
     }
@@ -48,15 +50,13 @@ public class KillCow extends Node {
     }
 
     private void attackCow() {
-        if (!cow[0].isInCombat()) {
-            if (Clicking.click("Attack", cow[0])) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return Player.getRSPlayer().isInCombat();
-                    }
-                }, General.random(750, 1000));
-            }
+        if (Clicking.click("Attack", cow[0])) {
+            Timing.waitCondition(new Condition() {
+                @Override
+                public boolean active() {
+                    return Player.getRSPlayer().isInCombat();
+                }
+            }, General.random(750, 1000));
         }
     }
 

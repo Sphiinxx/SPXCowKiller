@@ -39,7 +39,6 @@ public class PickupItems extends Node {
 
     @Override
     public void execute() {
-        groundItems = GroundItems.findNearest(pickupItems);
         if (!groundItems[0].isOnScreen()) {
             walkToItem();
         } else {
@@ -82,7 +81,7 @@ public class PickupItems extends Node {
 
     @Override
     public boolean validate() {
-        RSGroundItem[] groundItems = GroundItems.findNearest(pickupItems);
+        groundItems = GroundItems.findNearest(pickupItems);
 
         return groundItems.length > 0 &&
                 groundItems[0].getPosition().distanceTo(Player.getPosition()) <= 4 &&

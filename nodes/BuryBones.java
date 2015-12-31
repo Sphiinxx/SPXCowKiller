@@ -40,7 +40,7 @@ public class BuryBones extends Node {
 
     @Override
     public boolean validate() {
-        return !Player.getRSPlayer().isInCombat() && Inventory.getCount(BONES_ID) > 0 && vars.buryBones;
+        return vars.buryBones && !Player.getRSPlayer().isInCombat() && Inventory.getCount(BONES_ID) > 0;
     }
 
 }

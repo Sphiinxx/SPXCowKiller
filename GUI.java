@@ -30,7 +30,7 @@ public class GUI extends javax.swing.JFrame {
         start = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24));
-        jLabel1.setText("SPX Cow Killer");
+        jLabel1.setText("[SPX] Cow Killer");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 14))); // NOI18N
 

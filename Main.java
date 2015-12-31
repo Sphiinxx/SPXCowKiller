@@ -17,7 +17,7 @@ import java.util.Collections;
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-@ScriptManifest(authors = "Sphiinx", category = "Combat", name = "SPX Cow Killer", version = 0.1)
+@ScriptManifest(authors = "Sphiinx", category = "Combat", name = "[SPX] Cow Killer", version = 0.1)
 public class Main extends Script implements Painting {
 
     private Variables variables = new Variables();
@@ -29,7 +29,7 @@ public class Main extends Script implements Painting {
         initializeGui();
         getStartLevels();
         getStartExp();
-        Collections.addAll(nodes, new BankHides(variables), new WalkToCows(variables), new PickupItems(variables), new BuryBones(variables), new KillCow(variables), new DropUnwanted(variables));
+        Collections.addAll(nodes, new DepositItems(variables), new WalkToCows(variables), new PickupItems(variables), new BuryBones(variables), new KillCow(variables), new DropUnwanted(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }
@@ -89,7 +89,6 @@ public class Main extends Script implements Painting {
             g.drawImage(Constants.img1, 2, 200, null);
             g.setFont(Constants.font1);
             g.setColor(Constants.color1);
-            g.drawString("- Cow Killer", 58, 226);
             g.setFont(Constants.font2);
             g.setColor(Constants.color2);
             g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);

@@ -12,9 +12,9 @@ import scripts.SPXCowKiller.api.Node;
 /**
  * Created by Sphiinx on 12/22/2015.
  */
-public class BankHides extends Node {
+public class DepositItems extends Node {
 
-    public BankHides(Variables v) {
+    public DepositItems(Variables v) {
         super(v);
     }
 
@@ -34,7 +34,7 @@ public class BankHides extends Node {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
-                            return Inventory.getCount("Cowhide") < 1;
+                            return !Inventory.isFull();
                         }
                     }, General.random(750, 1000));
                 }
