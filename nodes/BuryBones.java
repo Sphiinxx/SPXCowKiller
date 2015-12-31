@@ -27,7 +27,6 @@ public class BuryBones extends Node {
         RSItem[] bones = Inventory.find(BONES_ID);
         if (bones.length > 0) {
             if (Clicking.click("Bury", bones[0])) {
-                vars.status = "Burying...";
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
@@ -36,6 +35,11 @@ public class BuryBones extends Node {
                 }, General.random(750, 1000));
             }
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Burying bones...";
     }
 
     @Override

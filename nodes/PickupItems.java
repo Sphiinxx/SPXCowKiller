@@ -42,7 +42,6 @@ public class PickupItems extends Node {
         if (!groundItems[0].isOnScreen()) {
             walkToItem();
         } else {
-            vars.status = "Picking up...";
             pickupItems();
         }
     }
@@ -77,6 +76,11 @@ public class PickupItems extends Node {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Picking up items...";
     }
 
     @Override

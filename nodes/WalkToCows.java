@@ -33,8 +33,12 @@ public class WalkToCows extends Node {
 
     @Override
     public void execute() {
-        vars.status = "Walking to cows...";
         WebWalking.walkTo(COW_PEN_AREA.getRandomTile());
+    }
+
+    @Override
+    public String toString(){
+        return "Walking to cows...";
     }
 
     @Override

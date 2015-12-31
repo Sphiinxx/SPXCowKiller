@@ -34,7 +34,6 @@ public class DropUnwanted extends Node {
 
     @Override
     public void execute() {
-        vars.status = "Dropping...";
         if (Inventory.drop(unwantedItems) > 0) {
             Timing.waitCondition(new Condition() {
                 @Override
@@ -44,6 +43,11 @@ public class DropUnwanted extends Node {
             }, General.random(750, 1000));
         }
     }
+    @Override
+    public String toString(){
+        return "Dropping items...";
+    }
+
 
     public boolean validate() {
         return Inventory.getCount(unwantedItems) > 0 &&

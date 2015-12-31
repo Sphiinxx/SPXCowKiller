@@ -20,7 +20,6 @@ public class DepositItems extends Node {
 
     @Override
     public void execute() {
-        vars.status = "Banking...";
         if (Banking.isInBank()) {
             openBank();
         } else {
@@ -59,6 +58,11 @@ public class DepositItems extends Node {
                 }
             }, General.random(750, 1000));
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Depositing items...";
     }
 
     @Override

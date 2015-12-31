@@ -30,7 +30,6 @@ public class KillCow extends Node {
                 if (!cow[0].isOnScreen()) {
                     walkToCow();
                 } else {
-                    vars.status = "Killing...";
                     attackCow();
                 }
             }
@@ -58,6 +57,11 @@ public class KillCow extends Node {
                 }
             }, General.random(750, 1000));
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Killing cow...";
     }
 
     @Override
