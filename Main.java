@@ -20,7 +20,7 @@ import java.util.Collections;
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-@ScriptManifest(authors = "Sphiinx", category = "Combat", name = "[SPX] Cow Killer", version = 0.1)
+@ScriptManifest(authors = "Sphiinx", category = "Combat", name = "[SPX] Cow Killer", version = 0.2)
 public class Main extends Script implements Painting, MousePainting, MouseSplinePainting {
 
     private Variables variables = new Variables();

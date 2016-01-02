@@ -51,6 +51,7 @@ public class PickupItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return groundItems[0].isOnScreen();
                 }
             }, General.random(750, 1000));
@@ -69,6 +70,7 @@ public class PickupItems extends Node {
                         Timing.waitCondition(new Condition() {
                             @Override
                             public boolean active() {
+                                General.sleep(100);
                                 return Player.isMoving();
                             }
                         }, General.random(750, 1000));

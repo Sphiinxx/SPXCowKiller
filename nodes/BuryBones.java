@@ -30,6 +30,7 @@ public class BuryBones extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Player.getAnimation() == -1;
                     }
                 }, General.random(750, 1000));

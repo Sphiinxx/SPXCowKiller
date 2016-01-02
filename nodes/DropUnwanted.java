@@ -38,6 +38,7 @@ public class DropUnwanted extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Inventory.getCount(unwantedItems) < 1;
                 }
             }, General.random(750, 1000));

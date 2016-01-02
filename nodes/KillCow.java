@@ -42,6 +42,7 @@ public class KillCow extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return cow[0].isOnScreen();
                 }
             }, General.random(750, 1000));
@@ -53,6 +54,7 @@ public class KillCow extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Player.getRSPlayer().isInCombat();
                 }
             }, General.random(750, 1000));
