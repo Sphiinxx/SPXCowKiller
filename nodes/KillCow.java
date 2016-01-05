@@ -4,9 +4,9 @@ import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
+import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.*;
 import org.tribot.api2007.Combat;
-import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSNPC;
 import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.api.Node;
@@ -23,33 +23,42 @@ public class KillCow extends Node {
 
     @Override
     public void execute() {
-        RSNPC[] cows = NPCs.findNearest("Cow");
-        for (final RSNPC cow : cows) {
-            if (!cow.isInCombat()) {
-                if (!cow.isOnScreen()) {
-                    if (Walking.walkTo(cow)) {
-                        Timing.waitCondition(new Condition() {
-                            @Override
-                            public boolean active() {
-                                General.sleep(100);
-                                return cow.isOnScreen();
-                            }
-                        }, General.random(1200, 1500));
-                    }
-                } else {
-                    if (Clicking.click("Attack", cow)) {
-                        Timing.waitCondition(new Condition() {
-                            @Override
-                            public boolean active() {
-                                General.sleep(100);
-                                return Combat.getAttackingEntities().length > 0;
-                            }
-                        }, General.random(1000, 1200));
-                    }
-                    break;
+        RSNPC cow = findCow();
+        if (cow != null) {
+            if (cow.isOnScreen()) {
+                if (Clicking.click("Attack", cow)) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            return Combat.getAttackingEntities().length > 0;
+                        }
+                    }, General.random(1000, 1200));
+                }
+            } else {
+                if (Walking.walkTo(cow)) {
+                    Timing.waitCondition(new Condition() {
+                        @Override
+                        public boolean active() {
+                            return cow.isOnScreen();
+                        }
+                    }, General.random(1000, 1200));
                 }
             }
         }
+    }
+
+    public RSNPC findCow() {
+        RSNPC[] cows = NPCs.findNearest(new Filter<RSNPC>() {
+            @Override
+            public boolean accept(RSNPC rsnpc) {
+                if (rsnpc != null) {
+                    String name = rsnpc.getName();
+                    return name != null && name.equals("Cow") && !rsnpc.isInCombat();
+                }
+                return false;
+            }
+        });
+        return cows.length > 0 ? cows[0] : null;
     }
 
     @Override
@@ -57,15 +66,8 @@ public class KillCow extends Node {
         return "Killing cow...";
     }
 
-    @Override
     public boolean validate() {
-        RSNPC[] cows = NPCs.findNearest("Cow");
-        for(final RSNPC cow : cows)
-        {
-            if(cow.isInteractingWithMe() && (cow.getHealth() == 0 || !cow.isValid()))
-                return true;
-        }
-        return !Player.getRSPlayer().isInCombat() && !Player.isMoving() && Combat.getAttackingEntities().length == 0;
+        return !Player.getRSPlayer().isInCombat() && Combat.getAttackingEntities().length == 0 && !Player.isMoving();
     }
 
 }

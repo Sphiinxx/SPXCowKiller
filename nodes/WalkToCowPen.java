@@ -11,9 +11,9 @@ import scripts.SPXCowKiller.api.Node;
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class WalkToCows extends Node {
+public class WalkToCowPen extends Node {
 
-    public WalkToCows(Variables v) {
+    public WalkToCowPen(Variables v) {
         super(v);
     }
 

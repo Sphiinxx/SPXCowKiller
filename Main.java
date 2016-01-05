@@ -32,7 +32,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         initializeGui();
         getStartLevels();
         getStartExp();
-        Collections.addAll(nodes, new DepositItems(variables), new WalkToCows(variables), new PickupItems(variables), new BuryBones(variables), new KillCow(variables), new DropUnwanted(variables));
+        Collections.addAll(nodes, new DepositItems(variables), new WalkToCowPen(variables), new PickupItems(variables), new BuryBones(variables), new KillCow(variables), new DropUnwanted(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }

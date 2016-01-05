@@ -88,11 +88,7 @@ public class PickupItems extends Node {
     @Override
     public boolean validate() {
         groundItems = GroundItems.findNearest(pickupItems);
-
-        return groundItems.length > 0 &&
-                groundItems[0].getPosition().distanceTo(Player.getPosition()) <= 4 &&
-                !Combat.isUnderAttack() &&
-                !Inventory.isFull();
+        return !Player.getRSPlayer().isInCombat() && groundItems.length > 0 && groundItems[0].getPosition().distanceTo(Player.getPosition()) <= 4 && !Inventory.isFull();
     }
 }
 
