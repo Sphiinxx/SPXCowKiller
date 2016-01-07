@@ -23,6 +23,20 @@ public class KillCow extends Node {
 
     @Override
     public void execute() {
+        if (Player.getRSPlayer().isInCombat()) {
+            Timing.waitCondition(new Condition() {
+                @Override
+                public boolean active() {
+                    General.sleep(100);
+                    return !Player.getRSPlayer().isInCombat();
+                }
+            }, General.random(1000, 1200));
+        } else {
+            attackCow();
+        }
+    }
+
+    public void attackCow() {
         RSNPC cow = findCow();
         if (cow != null) {
             if (cow.isOnScreen()) {
@@ -51,9 +65,9 @@ public class KillCow extends Node {
         RSNPC[] cows = NPCs.findNearest(new Filter<RSNPC>() {
             @Override
             public boolean accept(RSNPC rsnpc) {
-                if (rsnpc != null) {
-                    String name = rsnpc.getName();
-                    return name != null && name.equals("Cow") && !rsnpc.isInCombat();
+                String name = rsnpc.getName();
+                if (name != null) {
+                    return name.equals("Cow") && !rsnpc.isInCombat() && rsnpc.getInteractingCharacter() != Player.getRSPlayer();
                 }
                 return false;
             }
