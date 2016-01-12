@@ -7,7 +7,7 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXCowKiller.Variables;
-import scripts.SPXCowKiller.api.Node;
+import scripts.SPXCowKiller.API.Framework.Node;
 
 /**
  * Created by Sphiinx on 12/22/2015.
@@ -70,8 +70,7 @@ public class DepositItems extends Node {
 
     @Override
     public boolean validate() {
-        return vars.bankHides &&
-                Inventory.isFull();
+        return vars.bankHides && Inventory.getCount("Cowhide") == 28;
     }
 
 }

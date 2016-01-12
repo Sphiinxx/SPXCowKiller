@@ -8,8 +8,10 @@ import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.*;
 import org.tribot.api2007.Combat;
 import org.tribot.api2007.types.RSNPC;
+import org.tribot.api2007.types.RSTile;
+import scripts.SPXCowKiller.API.Game.Combat.Combat07;
 import scripts.SPXCowKiller.Variables;
-import scripts.SPXCowKiller.api.Node;
+import scripts.SPXCowKiller.API.Framework.Node;
 
 
 /**
@@ -81,7 +83,10 @@ public class KillCow extends Node {
     }
 
     public boolean validate() {
-        return !Player.getRSPlayer().isInCombat() && Combat.getAttackingEntities().length == 0 && !Player.isMoving();
+        if (vars.foodName.length() > 0) {
+            return Inventory.getCount(vars.foodName) > 0 && !Combat07.isInCombat() && !Player.isMoving();
+        }
+        return !Combat07.isInCombat() && !Player.isMoving();
     }
 
 }

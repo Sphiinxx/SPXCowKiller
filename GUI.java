@@ -1,5 +1,7 @@
 package scripts.SPXCowKiller;
 
+import org.tribot.api.General;
+
 import javax.swing.*;
 
 /**
@@ -14,6 +16,10 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
     }
 
+    public GUI() {
+        initComponents();
+    }
+
     private void initComponents() {
 
         try {
@@ -25,25 +31,56 @@ public class GUI extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        buryBones = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
         bankHides = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        buryBones = new javax.swing.JRadioButton();
+        location = new javax.swing.JComboBox();
+        foodName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         start = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24));
-        jLabel1.setText("[SPX] Cow Killer");
+        jLabel1.setText("SPX Cow Killer");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 14))); // NOI18N
 
-        buttonGroup1.add(buryBones);
-        buryBones.setText("Bury Bones");
-        buryBones.setFocusPainted(false);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setText("Enter the exact name of the Food:");
 
         buttonGroup1.add(bankHides);
-        bankHides.setText("Bank Hides");
-        bankHides.setFocusPainted(false);
 
-        start.setText("Start");
-        start.setFocusPainted(false);
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel5.setText("Location:");
+
+        buttonGroup1.add(buryBones);
+        buryBones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buryBonesActionPerformed(evt);
+            }
+        });
+
+        location.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
+                "East Lumbridge",
+                "North Lumbridge",
+                "River Lum",
+                "Crafting Guild",
+                "Falador",
+                "Ardougne"
+        }));
+
+        foodName.setFont(new java.awt.Font("Tahoma", 0, 12));
+        foodName.setToolTipText("Food Name");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel3.setText("Bury bones:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel4.setText("Pickup/Bank Hides");
+
+        start.setFont(new java.awt.Font("Tahoma", 0, 12));
+        start.setText("START");
         start.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startActionPerformed(evt);
@@ -55,27 +92,50 @@ public class GUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(60, 60, 60)
-                                                .addComponent(buryBones)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(bankHides))
+                                                .addComponent(bankHides)
+                                                .addGap(0, 0, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(96, 96, 96)
-                                                .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(68, Short.MAX_VALUE))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(foodName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(buryBones)
+                                                        .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(buryBones)
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(jLabel2)
+                                                                        .addComponent(foodName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(jLabel5)
+                                                                        .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(jLabel3))
+                                                        .addComponent(buryBones, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel4))
                                         .addComponent(bankHides))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
+                                .addGap(18, 18, 18)
+                                .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -87,7 +147,7 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(85, 85, 85)
+                                .addGap(90, 90, 90)
                                 .addComponent(jLabel1)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -104,6 +164,13 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }
 
+    private void printGuiInformation() {
+        General.println("Location: " + variables.location);
+    }
+
+    private void buryBonesActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
         if (buryBones.isSelected()) {
             variables.buryBones = true;
@@ -111,16 +178,55 @@ public class GUI extends javax.swing.JFrame {
         if (bankHides.isSelected()) {
             variables.bankHides = true;
         }
+        variables.location = location.getSelectedItem().toString();
+        switch (location.getSelectedItem().toString()) {
+            case "East Lumbridge":
+                printGuiInformation();
+                variables.currentLocation = Constants.EAST_LUMBRIDGE;
+                break;
+            case "North Lumbridge":
+                printGuiInformation();
+                variables.currentLocation = Constants.NORTH_LUMBRIDGE;
+                break;
+            case "River Lum":
+                printGuiInformation();
+                variables.currentLocation = Constants.RIVER_LUM;
+                break;
+            case "Crafting Guild":
+                printGuiInformation();
+                variables.currentLocation = Constants.CRAFTING_GUILD;
+                break;
+            case "Falador":
+                printGuiInformation();
+                variables.currentLocation = Constants.FALADOR;
+                break;
+            case "Ardougne":
+                printGuiInformation();
+                variables.currentLocation = Constants.ARDOUGNE;
+                break;
+        }
+        variables.foodName = foodName.getText();
         variables.guiComplete = true;
         setVisible(false);
     }
 
-
     private javax.swing.JRadioButton bankHides;
     private javax.swing.JRadioButton buryBones;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField foodName;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox location;
     private javax.swing.JButton start;
 }
+
+
+
+
+
+
 

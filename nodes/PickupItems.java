@@ -4,13 +4,11 @@ import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
-import org.tribot.api2007.Camera;
-import org.tribot.api2007.Combat;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSGroundItem;
-import org.tribot.api2007.types.RSItemDefinition;
+import scripts.API.Game.GroundItems.GroundItems07;
 import scripts.SPXCowKiller.Variables;
-import scripts.SPXCowKiller.api.Node;
+import scripts.SPXCowKiller.API.Framework.Node;
 
 import java.util.ArrayList;
 
@@ -39,44 +37,13 @@ public class PickupItems extends Node {
 
     @Override
     public void execute() {
-        if (!groundItems[0].isOnScreen()) {
-            walkToItem();
-        } else {
-            pickupItems();
-        }
-    }
-
-    private void walkToItem() {
-        if (Walking.walkTo(groundItems[0])) {
+        if (GroundItems07.pickUpGroundItem(groundItems)) {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
-                    General.sleep(100);
-                    return groundItems[0].isOnScreen();
+                    return Player.isMoving();
                 }
-            }, General.random(750, 1000));
-
-        }
-    }
-
-    private void pickupItems() {
-        Camera.turnToTile(groundItems[0]);
-        if (!Player.isMoving()) {
-            RSItemDefinition definition = groundItems[0].getDefinition();
-            if (definition != null) {
-                String name = definition.getName();
-                if (name != null) {
-                    if (groundItems[0].click("Take " + name)) {
-                        Timing.waitCondition(new Condition() {
-                            @Override
-                            public boolean active() {
-                                General.sleep(100);
-                                return Player.isMoving();
-                            }
-                        }, General.random(750, 1000));
-                    }
-                }
-            }
+            }, General.random(1000, 1200));
         }
     }
 

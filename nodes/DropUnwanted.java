@@ -6,7 +6,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import scripts.SPXCowKiller.Variables;
-import scripts.SPXCowKiller.api.Node;
+import scripts.SPXCowKiller.API.Framework.Node;
 
 import java.util.ArrayList;
 
@@ -35,6 +35,7 @@ public class DropUnwanted extends Node {
     @Override
     public void execute() {
         if (Inventory.drop(unwantedItems) > 0) {
+
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
