@@ -4,7 +4,7 @@ import org.tribot.api.General;
 import org.tribot.api2007.Skills;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
-import scripts.SPXAIOCooker.nodes.EatFood;
+import scripts.SPXCowKiller.nodes.EatFood;
 import scripts.SPXCowKiller.API.Framework.Node;
 import scripts.SPXCowKiller.nodes.*;
 

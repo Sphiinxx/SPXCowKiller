@@ -51,7 +51,8 @@ public class KillCow extends Node {
                     }, General.random(1000, 1200));
                 }
             } else {
-                if (Walking.walkTo(cow)) {
+                RSTile[] path = Walking.generateStraightScreenPath(cow.getPosition());
+                if (Walking.walkScreenPath(path)) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
