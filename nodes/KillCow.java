@@ -41,24 +41,26 @@ public class KillCow extends Node {
     public void attackCow() {
         RSNPC cow = findCow();
         if (cow != null) {
-            if (cow.isOnScreen()) {
-                if (Clicking.click("Attack", cow)) {
-                    Timing.waitCondition(new Condition() {
-                        @Override
-                        public boolean active() {
-                            return Combat.getAttackingEntities().length > 0;
-                        }
-                    }, General.random(1000, 1200));
-                }
-            } else {
-                RSTile[] path = Walking.generateStraightScreenPath(cow.getPosition());
-                if (Walking.walkScreenPath(path)) {
-                    Timing.waitCondition(new Condition() {
-                        @Override
-                        public boolean active() {
-                            return cow.isOnScreen();
-                        }
-                    }, General.random(1000, 1200));
+            if (vars.currentLocation.contains(cow.getPosition())) {
+                if (cow.isOnScreen()) {
+                    if (Clicking.click("Attack", cow)) {
+                        Timing.waitCondition(new Condition() {
+                            @Override
+                            public boolean active() {
+                                return Combat.getAttackingEntities().length > 0;
+                            }
+                        }, General.random(1000, 1200));
+                    }
+                } else {
+                    RSTile[] path = Walking.generateStraightScreenPath(cow.getPosition());
+                    if (Walking.walkScreenPath(path)) {
+                        Timing.waitCondition(new Condition() {
+                            @Override
+                            public boolean active() {
+                                return cow.isOnScreen();
+                            }
+                        }, General.random(1000, 1200));
+                    }
                 }
             }
         }

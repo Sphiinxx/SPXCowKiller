@@ -1,9 +1,15 @@
 package scripts.SPXCowKiller;
 
 import org.tribot.api.General;
+import org.tribot.api.Timing;
+import org.tribot.api.input.Mouse;
+import org.tribot.api2007.Login;
 import org.tribot.api2007.Skills;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
+import org.tribot.script.interfaces.MousePainting;
+import org.tribot.script.interfaces.MouseSplinePainting;
+import org.tribot.script.interfaces.Painting;
 import scripts.SPXCowKiller.nodes.EatFood;
 import scripts.SPXCowKiller.API.Framework.Node;
 import scripts.SPXCowKiller.nodes.*;
@@ -73,6 +79,7 @@ public class Main extends Script {
                 Skills.getXP(Skills.SKILLS.ATTACK) +
                 Skills.getXP(Skills.SKILLS.DEFENCE);
     }
+
 
 
 }

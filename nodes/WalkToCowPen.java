@@ -1,9 +1,8 @@
 package scripts.SPXCowKiller.nodes;
 
 import org.tribot.api2007.Inventory;
-import org.tribot.api2007.NPCs;
+import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
-import org.tribot.api2007.types.RSNPC;
 import scripts.SPXCowKiller.Variables;
 import scripts.SPXCowKiller.API.Framework.Node;
 
@@ -28,11 +27,10 @@ public class WalkToCowPen extends Node {
 
     @Override
     public boolean validate() {
-        RSNPC[] cows = NPCs.find("Cow");
         if (vars.foodName.length() > 0) {
-            return Inventory.getCount(vars.foodName) > 0 && cows.length <= 0;
+            return Inventory.getCount(vars.foodName) > 0 && !vars.currentLocation.contains(Player.getPosition());
         }
-        return cows.length <= 0;
+       return !vars.currentLocation.contains(Player.getPosition());
     }
 
 }
