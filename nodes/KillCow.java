@@ -10,7 +10,7 @@ import org.tribot.api2007.Combat;
 import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSTile;
 import scripts.SPXCowKiller.API.Game.Combat.Combat07;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.data.Variables;
 import scripts.SPXCowKiller.API.Framework.Node;
 
 
@@ -41,7 +41,7 @@ public class KillCow extends Node {
     public void attackCow() {
         RSNPC cow = findCow();
         if (cow != null) {
-            if (vars.currentLocation.contains(cow.getPosition())) {
+            if (vars.area.contains(cow.getPosition())) {
                 if (cow.isOnScreen()) {
                     if (Clicking.click("Attack", cow)) {
                         Timing.waitCondition(new Condition() {

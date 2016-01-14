@@ -1,13 +1,14 @@
-package scripts.SPXCowKiller;
+package scripts.SPXCowKiller.data;
+
 
 import org.tribot.api2007.types.RSArea;
-import org.tribot.api2007.types.RSTile;
 
 /**
  * Created by Sphiinx on 12/24/2015.
  */
 public class Variables {
 
+    public RSArea area;
     public boolean buryBones;
     public boolean bankHides;
     public boolean guiComplete;
@@ -17,9 +18,7 @@ public class Variables {
     public int eatPercentage = 50;
     public double version;
     public String status;
-    public String location;
     public String foodName;
-    public RSArea currentLocation = new RSArea(new RSTile[]{});
 
 }
 

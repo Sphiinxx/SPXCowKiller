@@ -10,6 +10,9 @@ import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
+import scripts.SPXCowKiller.data.Constants;
+import scripts.SPXCowKiller.data.Variables;
+import scripts.SPXCowKiller.gui.GUI;
 import scripts.SPXCowKiller.nodes.EatFood;
 import scripts.SPXCowKiller.API.Framework.Node;
 import scripts.SPXCowKiller.nodes.*;
@@ -42,6 +45,7 @@ public class Main extends Script {
         while (!variables.stopScript) {
             for (final Node node : nodes) {
                 if (node.validate()) {
+                    General.println(variables.area);
                     variables.status = node.toString();
                     node.execute();
                     General.sleep(min, max);
@@ -79,7 +83,6 @@ public class Main extends Script {
                 Skills.getXP(Skills.SKILLS.ATTACK) +
                 Skills.getXP(Skills.SKILLS.DEFENCE);
     }
-
 
 
 }

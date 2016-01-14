@@ -1,6 +1,8 @@
-package scripts.SPXCowKiller;
+package scripts.SPXCowKiller.gui;
 
 import org.tribot.api.General;
+import scripts.SPXCowKiller.data.Location;
+import scripts.SPXCowKiller.data.Variables;
 
 import javax.swing.*;
 
@@ -35,7 +37,7 @@ public class GUI extends javax.swing.JFrame {
         bankHides = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
         buryBones = new javax.swing.JRadioButton();
-        location = new javax.swing.JComboBox();
+        location = new javax.swing.JComboBox<>();
         foodName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -61,14 +63,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        location.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
-                "East Lumbridge",
-                "North Lumbridge",
-                "River Lum",
-                "Crafting Guild",
-                "Falador",
-                "Ardougne"
-        }));
+        location.setModel(new javax.swing.DefaultComboBoxModel<Location>(Location.values()));
 
         foodName.setFont(new java.awt.Font("Tahoma", 0, 12));
         foodName.setToolTipText("Food Name");
@@ -165,7 +160,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void printGuiInformation() {
-        General.println("Location: " + variables.location);
+        General.println("Location: " + variables.area);
     }
 
     private void buryBonesActionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,33 +173,7 @@ public class GUI extends javax.swing.JFrame {
         if (bankHides.isSelected()) {
             variables.bankHides = true;
         }
-        variables.location = location.getSelectedItem().toString();
-        switch (location.getSelectedItem().toString()) {
-            case "East Lumbridge":
-                printGuiInformation();
-                variables.currentLocation = Constants.EAST_LUMBRIDGE;
-                break;
-            case "North Lumbridge":
-                printGuiInformation();
-                variables.currentLocation = Constants.NORTH_LUMBRIDGE;
-                break;
-            case "River Lum":
-                printGuiInformation();
-                variables.currentLocation = Constants.RIVER_LUM;
-                break;
-            case "Crafting Guild":
-                printGuiInformation();
-                variables.currentLocation = Constants.CRAFTING_GUILD;
-                break;
-            case "Falador":
-                printGuiInformation();
-                variables.currentLocation = Constants.FALADOR;
-                break;
-            case "Ardougne":
-                printGuiInformation();
-                variables.currentLocation = Constants.ARDOUGNE;
-                break;
-        }
+        variables.area = ((Location)location.getSelectedItem()).getArea();
         variables.foodName = foodName.getText();
         variables.guiComplete = true;
         setVisible(false);
@@ -220,7 +189,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox location;
+    private JComboBox<Location> location;
     private javax.swing.JButton start;
 }
 

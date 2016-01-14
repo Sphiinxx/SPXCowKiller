@@ -3,7 +3,8 @@ package scripts.SPXCowKiller.nodes;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.data.Location;
+import scripts.SPXCowKiller.data.Variables;
 import scripts.SPXCowKiller.API.Framework.Node;
 
 /**
@@ -17,7 +18,7 @@ public class WalkToCowPen extends Node {
 
     @Override
     public void execute() {
-        WebWalking.walkTo(vars.currentLocation.getRandomTile());
+        WebWalking.walkTo(vars.area.getRandomTile());
     }
 
     @Override
@@ -28,9 +29,9 @@ public class WalkToCowPen extends Node {
     @Override
     public boolean validate() {
         if (vars.foodName.length() > 0) {
-            return Inventory.getCount(vars.foodName) > 0 && !vars.currentLocation.contains(Player.getPosition());
+            return Inventory.getCount(vars.foodName) > 0 && !vars.area.contains(Player.getPosition());
         }
-       return !vars.currentLocation.contains(Player.getPosition());
+       return !vars.area.contains(Player.getPosition());
     }
 
 }

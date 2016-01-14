@@ -6,7 +6,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.data.Variables;
 import scripts.SPXCowKiller.API.Framework.Node;
 
 /**

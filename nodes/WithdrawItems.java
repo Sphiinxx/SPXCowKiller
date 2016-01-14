@@ -7,7 +7,7 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXCowKiller.API.Framework.Node;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.data.Variables;
 
 /**
  * Created by Sphiinx on 1/10/2016.

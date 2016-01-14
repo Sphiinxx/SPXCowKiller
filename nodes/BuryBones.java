@@ -7,7 +7,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSItem;
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.data.Variables;
 import scripts.SPXCowKiller.API.Framework.Node;
 
 

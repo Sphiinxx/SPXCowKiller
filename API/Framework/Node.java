@@ -1,6 +1,6 @@
 package scripts.SPXCowKiller.API.Framework;
 
-import scripts.SPXCowKiller.Variables;
+import scripts.SPXCowKiller.data.Variables;
 
 public abstract class Node {
 
