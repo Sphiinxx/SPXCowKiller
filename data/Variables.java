@@ -9,14 +9,18 @@ import org.tribot.api2007.types.RSArea;
 public class Variables {
 
     public RSArea area;
+
     public boolean buryBones;
     public boolean bankHides;
     public boolean guiComplete;
+    public boolean hasArrows;
     public boolean stopScript;
+
     public int startLevels;
     public int startExp;
     public int eatPercentage = 50;
     public double version;
+
     public String status;
     public String foodName;
 

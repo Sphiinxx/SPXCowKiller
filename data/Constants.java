@@ -1,6 +1,5 @@
 package scripts.SPXCowKiller.data;
 
-
 import java.awt.*;
 
 /**
