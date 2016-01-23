@@ -13,7 +13,7 @@ public class Variables {
     public boolean buryBones;
     public boolean bankHides;
     public boolean guiComplete;
-    public boolean hasArrows;
+    public boolean outOfArrows;
     public boolean stopScript;
 
     public int startLevels;
