@@ -6,13 +6,13 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 import scripts.SPXCowKiller.data.Variables;
 
 /**
  * Created by Sphiinx on 1/10/2016.
  */
-public class WithdrawItems extends Node{
+public class WithdrawItems extends Task {
 
     public WithdrawItems(Variables v) {
         super(v);

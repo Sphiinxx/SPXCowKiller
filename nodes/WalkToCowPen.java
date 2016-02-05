@@ -3,14 +3,13 @@ package scripts.SPXCowKiller.nodes;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.data.Location;
 import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class WalkToCowPen extends Node {
+public class WalkToCowPen extends Task {
 
     public WalkToCowPen(Variables v) {
         super(v);

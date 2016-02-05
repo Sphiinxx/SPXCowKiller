@@ -8,13 +8,13 @@ import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSItem;
 import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class BuryBones extends Node {
+public class BuryBones extends Task {
 
     private final int BONES_ID = 526;
 

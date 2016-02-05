@@ -11,13 +11,13 @@ import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSTile;
 import scripts.SPXCowKiller.API.Game.Combat.Combat07;
 import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class KillCow extends Node {
+public class KillCow extends Task {
 
     public KillCow(Variables v) {
         super(v);

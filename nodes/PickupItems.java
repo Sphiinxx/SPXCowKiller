@@ -8,14 +8,14 @@ import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSGroundItem;
 import scripts.SPXCowKiller.API.Game.GroundItems.GroundItems07;
 import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class PickupItems extends Node {
+public class PickupItems extends Task {
 
     private String[] pickupItems;
     private RSGroundItem[] groundItems;

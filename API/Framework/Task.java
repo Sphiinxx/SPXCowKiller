@@ -2,11 +2,11 @@ package scripts.SPXCowKiller.API.Framework;
 
 import scripts.SPXCowKiller.data.Variables;
 
-public abstract class Node {
+public abstract class Task {
 
     protected Variables vars;
 
-    public Node(Variables v) {
+    public Task(Variables v) {
         vars = v;
     }
 

@@ -9,13 +9,13 @@ import org.tribot.api2007.Inventory;
 
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSItem;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 import scripts.SPXCowKiller.data.Variables;
 
 /**
  * Created by Sphiinx on 1/10/2016.
  */
-public class EatFood extends Node {
+public class EatFood extends Task {
 
     public EatFood(Variables v) {
         super(v);

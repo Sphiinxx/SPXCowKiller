@@ -5,8 +5,7 @@ import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
-import scripts.SPXCowKiller.API.Game.Inventory.Inventory07;
-
+import scripts.API.Game.Inventory.Inventory07;
 
 /**
  * Created by Sphiinx on 1/10/2016.

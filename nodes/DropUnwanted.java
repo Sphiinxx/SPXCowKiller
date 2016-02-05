@@ -6,14 +6,14 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Node;
+import scripts.SPXCowKiller.API.Framework.Task;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sphiinx on 12/22/2015.
  */
-public class DropUnwanted extends Node {
+public class DropUnwanted extends Task {
 
     private String[] unwantedItems;
 
