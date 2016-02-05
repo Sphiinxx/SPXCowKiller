@@ -1,4 +1,4 @@
-package scripts.SPXCowKiller.nodes;
+package scripts.SPXCowKiller.tasks;
 
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;

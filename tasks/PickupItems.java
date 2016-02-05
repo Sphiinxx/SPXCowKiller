@@ -1,4 +1,4 @@
-package scripts.SPXCowKiller.nodes;
+package scripts.SPXCowKiller.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;

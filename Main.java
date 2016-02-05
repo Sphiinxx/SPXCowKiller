@@ -14,9 +14,9 @@ import org.tribot.script.interfaces.Painting;
 import scripts.SPXCowKiller.data.Constants;
 import scripts.SPXCowKiller.data.Variables;
 import scripts.SPXCowKiller.gui.GUI;
-import scripts.SPXCowKiller.nodes.EatFood;
+import scripts.SPXCowKiller.tasks.EatFood;
 import scripts.SPXCowKiller.API.Framework.Task;
-import scripts.SPXCowKiller.nodes.*;
+import scripts.SPXCowKiller.tasks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -110,6 +110,8 @@ public class Main extends Script implements MessageListening07, Painting {
 
         }
     }
+
+
 
     @Override
     public void tradeRequestReceived(String s) {
