@@ -50,6 +50,7 @@ public class KillCow extends Task {
                                 return Combat.getAttackingEntities().length > 0;
                             }
                         }, General.random(1000, 1200));
+                        vars.cowsKilled++;
                     }
                 } else {
                     RSTile[] path = Walking.generateStraightScreenPath(cow.getPosition());
@@ -72,7 +73,7 @@ public class KillCow extends Task {
             public boolean accept(RSNPC rsnpc) {
                 String name = rsnpc.getName();
                 if (name != null) {
-                    return name.equals("Cow") && !rsnpc.isInCombat() && rsnpc.getInteractingCharacter() != Player.getRSPlayer();
+                    return (name.equals("Cow") || name.equals("Cow calf")) && !rsnpc.isInCombat() && rsnpc.getInteractingCharacter() != Player.getRSPlayer();
                 }
                 return false;
             }

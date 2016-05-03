@@ -24,11 +24,9 @@ public class PickupItems extends Task {
         super(v);
         ArrayList<String> itemList = new ArrayList<>();
         if (vars.buryBones) {
-            System.out.println("Added bones");
             itemList.add("Bones");
         }
         if (vars.bankHides) {
-            System.out.println("Added Cowhide");
             itemList.add("Cowhide");
         }
         pickupItems = new String[itemList.size()];

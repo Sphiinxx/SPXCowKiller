@@ -19,7 +19,11 @@ public class Variables {
     public int startLevels;
     public int startExp;
     public int eatPercentage = 50;
+    public int cowsKilled;
+    public int getGainedExp;
+    public int getGainedLevels;
     public double version;
+    public long timeRan;
 
     public String status;
     public String foodName;
