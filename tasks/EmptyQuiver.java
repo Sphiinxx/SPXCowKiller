@@ -4,22 +4,17 @@ import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
-import scripts.SPXCowKiller.API.Framework.Task;
-import scripts.SPXCowKiller.API.Game.Combat.Combat07;
-import scripts.SPXCowKiller.API.Game.Game.Game07;
 import scripts.SPXCowKiller.data.Constants;
-import scripts.SPXCowKiller.data.Variables;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
+import scripts.TribotAPI.game.combat.Combat07;
+import scripts.TribotAPI.game.game.Game07;
 
 /**
  * Created by Sphiinx on 1/20/2016.
  */
-public class EmptyQuiver extends Task {
+public class EmptyQuiver implements Task {
 
-    public EmptyQuiver(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
         if (Combat07.isInCombat()) {
             WebWalking.walkTo(Constants.SAFE_ZONE, new Condition() {
@@ -40,18 +35,17 @@ public class EmptyQuiver extends Task {
                 }, General.random(750, 1000));
                 General.println("We're out of arrows...");
                 General.println("Stopping script...");
-                vars.stopScript = true;
+                Vars.get().stopScript = true;
             }
         }
     }
 
-    @Override
     public String toString(){
         return "Logging out...";
     }
 
     public boolean validate() {
-        return vars.outOfArrows;
+        return Vars.get().outOfArrows;
     }
 }
 

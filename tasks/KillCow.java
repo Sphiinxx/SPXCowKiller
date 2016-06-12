@@ -9,21 +9,16 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.Combat;
 import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSTile;
-import scripts.SPXCowKiller.API.Game.Combat.Combat07;
-import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Task;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
+import scripts.TribotAPI.game.combat.Combat07;
 
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class KillCow extends Task {
+public class KillCow implements Task {
 
-    public KillCow(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
         if (Player.getRSPlayer().isInCombat()) {
             Timing.waitCondition(new Condition() {
@@ -41,7 +36,7 @@ public class KillCow extends Task {
     public void attackCow() {
         RSNPC cow = findCow();
         if (cow != null) {
-            if (vars.area.contains(cow.getPosition())) {
+            if (Vars.get().area.contains(cow.getPosition())) {
                 if (cow.isOnScreen()) {
                     if (Clicking.click("Attack", cow)) {
                         Timing.waitCondition(new Condition() {
@@ -50,7 +45,7 @@ public class KillCow extends Task {
                                 return Combat.getAttackingEntities().length > 0;
                             }
                         }, General.random(1000, 1200));
-                        vars.cowsKilled++;
+                        Vars.get().cowsKilled++;
                     }
                 } else {
                     RSTile[] path = Walking.generateStraightScreenPath(cow.getPosition());
@@ -81,14 +76,13 @@ public class KillCow extends Task {
         return cows.length > 0 ? cows[0] : null;
     }
 
-    @Override
     public String toString() {
         return "Killing cow...";
     }
 
     public boolean validate() {
-        if (vars.foodName.length() > 0) {
-            return Inventory.getCount(vars.foodName) > 0 && !Combat07.isInCombat() && !Player.isMoving();
+        if (Vars.get().foodName.length() > 0) {
+            return Inventory.getCount(Vars.get().foodName) > 0 && !Combat07.isInCombat() && !Player.isMoving();
         }
         return !Combat07.isInCombat() && !Player.isMoving();
     }

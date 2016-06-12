@@ -5,26 +5,25 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
-import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Task;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sphiinx on 12/22/2015.
  */
-public class DropUnwanted extends Task {
+public class DropUnwanted implements Task {
 
     private String[] unwantedItems;
 
-    public DropUnwanted(Variables v) {
-        super(v);
+    public DropUnwanted() {
         ArrayList<String> itemList = new ArrayList<String>();
         itemList.add("Raw beef");
-        if (vars.buryBones) {
+        if (Vars.get().buryBones) {
             itemList.add("Cowhide");
         }
-        if (vars.bankHides) {
+        if (Vars.get().bankHides) {
             itemList.add("Bones");
         }
 

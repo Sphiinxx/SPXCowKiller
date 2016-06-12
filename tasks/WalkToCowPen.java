@@ -3,21 +3,17 @@ package scripts.SPXCowKiller.tasks;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Task;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class WalkToCowPen extends Task {
-
-    public WalkToCowPen(Variables v) {
-        super(v);
-    }
+public class WalkToCowPen implements Task {
 
     @Override
     public void execute() {
-        WebWalking.walkTo(vars.area.getRandomTile());
+        WebWalking.walkTo(Vars.get().area.getRandomTile());
     }
 
     @Override
@@ -27,10 +23,10 @@ public class WalkToCowPen extends Task {
 
     @Override
     public boolean validate() {
-        if (vars.foodName.length() > 0) {
-            return Inventory.getCount(vars.foodName) > 0 && !vars.area.contains(Player.getPosition());
+        if (Vars.get().foodName.length() > 0) {
+            return Inventory.getCount(Vars.get().foodName) > 0 && !Vars.get().area.contains(Player.getPosition());
         }
-       return !vars.area.contains(Player.getPosition());
+       return !Vars.get().area.contains(Player.getPosition());
     }
 
 }

@@ -6,17 +6,13 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.API.Framework.Task;
-import scripts.SPXCowKiller.data.Variables;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
 
 /**
  * Created by Sphiinx on 1/10/2016.
  */
-public class WithdrawItems extends Task {
-
-    public WithdrawItems(Variables v) {
-        super(v);
-    }
+public class WithdrawItems implements Task {
 
     @Override
     public void execute() {
@@ -32,20 +28,20 @@ public class WithdrawItems extends Task {
     }
 
     public void withdrawItems() {
-        if (Banking.find(vars.foodName).length > 0) {
-            if (Banking.withdraw(0, vars.foodName)) {
+        if (Banking.find(Vars.get().foodName).length > 0) {
+            if (Banking.withdraw(0, Vars.get().foodName)) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
                         General.sleep(100);
-                        return Inventory.getCount(vars.foodName) > 0;
+                        return Inventory.getCount(Vars.get().foodName) > 0;
                     }
                 }, General.random(750, 1000));
             }
         } else {
             General.println("We could not find the food requested...");
             General.println("Stopping Script...");
-            vars.stopScript = true;
+            Vars.get().stopScript = true;
         }
     }
 
@@ -80,7 +76,7 @@ public class WithdrawItems extends Task {
 
     @Override
     public boolean validate() {
-        return vars.foodName.length() > 0 && Inventory.getCount(vars.foodName) <= 0;
+        return Vars.get().foodName.length() > 0 && Inventory.getCount(Vars.get().foodName) <= 0;
     }
 
 }

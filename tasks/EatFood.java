@@ -9,21 +9,16 @@ import org.tribot.api2007.Inventory;
 
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSItem;
-import scripts.SPXCowKiller.API.Framework.Task;
-import scripts.SPXCowKiller.data.Variables;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
 
 /**
  * Created by Sphiinx on 1/10/2016.
  */
-public class EatFood extends Task {
+public class EatFood implements Task {
 
-    public EatFood(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
-        RSItem[] food = Inventory.find(vars.foodName);
+        RSItem[] food = Inventory.find(Vars.get().foodName);
         if (Clicking.click("Eat", food[0])) {
             Timing.waitCondition(new Condition() {
                 @Override
@@ -35,14 +30,12 @@ public class EatFood extends Task {
         }
     }
 
-    @Override
     public String toString() {
         return "Eating food...";
     }
 
-    @Override
     public boolean validate() {
-        return vars.foodName.length() > 0 && Inventory.getCount(vars.foodName) > 0 && Combat.getHPRatio() < vars.eatPercentage;
+        return Vars.get().foodName.length() > 0 && Inventory.getCount(Vars.get().foodName) > 0 && Combat.getHPRatio() < Vars.get().eatPercentage;
     }
 
 }

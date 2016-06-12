@@ -6,27 +6,26 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSGroundItem;
-import scripts.SPXCowKiller.API.Game.GroundItems.GroundItems07;
-import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Task;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
+import scripts.TribotAPI.game.grounditems.GroundItems07;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sphiinx on 12/21/2015.
  */
-public class PickupItems extends Task {
+public class PickupItems implements Task {
 
     private String[] pickupItems;
     private RSGroundItem[] groundItems;
 
-    public PickupItems(Variables v) {
-        super(v);
+    public PickupItems() {
         ArrayList<String> itemList = new ArrayList<>();
-        if (vars.buryBones) {
+        if (Vars.get().buryBones) {
             itemList.add("Bones");
         }
-        if (vars.bankHides) {
+        if (Vars.get().bankHides) {
             itemList.add("Cowhide");
         }
         pickupItems = new String[itemList.size()];
@@ -35,18 +34,20 @@ public class PickupItems extends Task {
 
     @Override
     public void execute() {
-        if (GroundItems07.pickUpGroundItem(groundItems)) {
-            Timing.waitCondition(new Condition() {
-                @Override
-                public boolean active() {
-                    return Player.isMoving();
-                }
-            }, General.random(1000, 1200));
+        for (RSGroundItem item : groundItems) {
+            if (GroundItems07.pickUpGroundItem(item)) {
+                Timing.waitCondition(new Condition() {
+                    @Override
+                    public boolean active() {
+                        return Player.isMoving();
+                    }
+                }, General.random(1000, 1200));
+            }
         }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Picking up items...";
     }
 

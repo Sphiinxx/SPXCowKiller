@@ -9,15 +9,17 @@ import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.*;
 import scripts.SPXCowKiller.data.Constants;
-import scripts.SPXCowKiller.data.Variables;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
+import scripts.SPXCowKiller.framework.TaskManager;
 import scripts.SPXCowKiller.gui.GUI;
 import scripts.SPXCowKiller.tasks.EatFood;
-import scripts.SPXCowKiller.API.Framework.Task;
 import scripts.SPXCowKiller.tasks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sphiinx on 12/21/2015.
@@ -25,29 +27,31 @@ import java.util.Collections;
 @ScriptManifest(authors = "Sphiinx", category = "Combat", name = "[SPX] Cow Killer", version = 0.4)
 public class Main extends Script implements MessageListening07, Painting, MouseSplinePainting, MousePainting, Ending {
 
-    private Variables variables = new Variables();
-    private ArrayList<Task> tasks = new ArrayList<>();
-    public GUI gui = new GUI(variables);
+    public GUI gui = new GUI();
+    private TaskManager taskManager = new TaskManager();
 
     @Override
     public void run() {
+        Vars.reset();
         initializeGui();
         getStartLevels();
         getStartExp();
-        Collections.addAll(tasks, new WithdrawItems(variables), new DepositItems(variables), new EatFood(variables), new WalkToCowPen(variables),
-                new PickupItems(variables), new BuryBones(variables), new KillCow(variables), new DropUnwanted(variables), new EmptyQuiver(variables));
-        variables.version = getClass().getAnnotation(ScriptManifest.class).version();
+        addCollection();
+        Vars.get().version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(100, 150);
     }
 
+    private void addCollection() {
+        taskManager.addTask(new WithdrawItems(), new DepositItems(), new EatFood(), new WalkToCowPen(), new PickupItems(), new BuryBones(), new KillCow(), new DropUnwanted(), new EmptyQuiver());
+    }
+
     private void loop(int min, int max) {
-        while (!variables.stopScript) {
-            for (final Task task : tasks) {
-                if (task.validate()) {
-                    variables.status = task.toString();
-                    task.execute();
-                    General.sleep(min, max);
-                }
+        while (!Vars.get().stopScript) {
+            Task task = taskManager.getValidTask();
+            if (task != null) {
+                Vars.get().status = task.toString();
+                task.execute();
+                General.sleep(min, max);
             }
         }
     }
@@ -56,7 +60,7 @@ public class Main extends Script implements MessageListening07, Painting, MouseS
         EventQueue.invokeLater(() -> {
             try {
                 sleep(50);
-                variables.status = "Initializing...";
+                Vars.get().status = "Initializing...";
                 gui.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,17 +68,17 @@ public class Main extends Script implements MessageListening07, Painting, MouseS
         });
         do
             sleep(10);
-        while (!variables.guiComplete);
+        while (!Vars.get().guiComplete);
     }
 
     private void getStartLevels() {
-        variables.startLevels = Skills.getActualLevel(Skills.SKILLS.STRENGTH) +
+        Vars.get().startLevels = Skills.getActualLevel(Skills.SKILLS.STRENGTH) +
                 Skills.getActualLevel(Skills.SKILLS.ATTACK) +
                 Skills.getActualLevel(Skills.SKILLS.DEFENCE);
     }
 
     private void getStartExp() {
-        variables.startExp = Skills.getXP(Skills.SKILLS.STRENGTH) +
+        Vars.get().startExp = Skills.getXP(Skills.SKILLS.STRENGTH) +
                 Skills.getXP(Skills.SKILLS.ATTACK) +
                 Skills.getXP(Skills.SKILLS.DEFENCE);
     }
@@ -84,11 +88,11 @@ public class Main extends Script implements MessageListening07, Painting, MouseS
         g.setRenderingHints(Constants.ANTIALIASING);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            variables.timeRan = System.currentTimeMillis() - Constants.START_TIME;
+            Vars.get().timeRan = System.currentTimeMillis() - Constants.START_TIME;
             int getCurrentLevels = Skills.getActualLevel(Skills.SKILLS.ATTACK) + Skills.getActualLevel(Skills.SKILLS.STRENGTH) + Skills.getActualLevel(Skills.SKILLS.DEFENCE);
             int getCurrentExp = Skills.getXP(Skills.SKILLS.STRENGTH) + Skills.getXP(Skills.SKILLS.ATTACK) + Skills.getXP(Skills.SKILLS.DEFENCE);
-            variables.getGainedLevels = getCurrentLevels - variables.startLevels;
-            variables.getGainedExp = getCurrentExp - variables.startExp;
+            Vars.get().getGainedLevels = getCurrentLevels - Vars.get().startLevels;
+            Vars.get().getGainedExp = getCurrentExp - Vars.get().startExp;
 
             g.setColor(Constants.BLACK_COLOR);
             g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
@@ -99,11 +103,11 @@ public class Main extends Script implements MessageListening07, Painting, MouseS
             g.setColor(Color.WHITE);
             g.drawString("[SPX] Cow Killer", 18, 239);
             g.setFont(Constants.TEXT_FONT);
-            g.drawString("Runtime: " + Timing.msToString(variables.timeRan), 14, 260);
-            g.drawString("Levels Gained: " + variables.getGainedLevels, 14, 276);
-            g.drawString("Gained Exp: " + variables.getGainedExp, 14, 293);
-            g.drawString("Status: " + variables.status, 14, 310);
-            g.drawString("v" + variables.version, 185, 326);
+            g.drawString("Runtime: " + Timing.msToString(Vars.get().timeRan), 14, 260);
+            g.drawString("Levels Gained: " + Vars.get().getGainedLevels, 14, 276);
+            g.drawString("Gained Exp: " + Vars.get().getGainedExp, 14, 293);
+            g.drawString("Status: " + Vars.get().status, 14, 310);
+            g.drawString("v" + Vars.get().version, 185, 326);
 
         }
     }
@@ -138,7 +142,7 @@ public class Main extends Script implements MessageListening07, Painting, MouseS
     @Override
     public void serverMessageReceived(String s) {
         if (s.contains("no ammo left")) {
-            variables.outOfArrows = true;
+            Vars.get().outOfArrows = true;
         }
     }
 
@@ -163,7 +167,7 @@ public class Main extends Script implements MessageListening07, Painting, MouseS
 
     @Override
     public void onEnd() {
-        DynamicSignature.sendSignatureData(variables.timeRan / 1000, variables.cowsKilled, variables.getGainedLevels, variables.getGainedExp);
+        DynamicSignature.sendSignatureData(Vars.get().timeRan / 1000, Vars.get().cowsKilled, Vars.get().getGainedLevels, Vars.get().getGainedExp);
     }
 
 }

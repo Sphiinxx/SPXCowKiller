@@ -1,8 +1,8 @@
 package scripts.SPXCowKiller.gui;
 
 import org.tribot.api.General;
-import scripts.SPXCowKiller.data.Location;
-import scripts.SPXCowKiller.data.Variables;
+import scripts.SPXCowKiller.data.enums.Location;
+import scripts.SPXCowKiller.data.Vars;
 
 import javax.swing.*;
 
@@ -10,13 +10,6 @@ import javax.swing.*;
  * Created by Sphiinx on 12/22/2015.
  */
 public class GUI extends javax.swing.JFrame {
-
-    private Variables variables;
-
-    public GUI(Variables variables) {
-        this.variables = variables;
-        initComponents();
-    }
 
     public GUI() {
         initComponents();
@@ -160,7 +153,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void printGuiInformation() {
-        General.println("Location: " + variables.area);
+        General.println("Location: " + Vars.get().area);
     }
 
     private void buryBonesActionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,14 +161,14 @@ public class GUI extends javax.swing.JFrame {
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
         if (buryBones.isSelected()) {
-            variables.buryBones = true;
+            Vars.get().buryBones = true;
         }
         if (bankHides.isSelected()) {
-            variables.bankHides = true;
+            Vars.get().bankHides = true;
         }
-        variables.area = ((Location)location.getSelectedItem()).getArea();
-        variables.foodName = foodName.getText();
-        variables.guiComplete = true;
+        Vars.get().area = ((Location)location.getSelectedItem()).getArea();
+        Vars.get().foodName = foodName.getText();
+        Vars.get().guiComplete = true;
         setVisible(false);
     }
 

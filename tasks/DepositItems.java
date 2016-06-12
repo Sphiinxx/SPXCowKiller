@@ -6,19 +6,14 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXCowKiller.data.Variables;
-import scripts.SPXCowKiller.API.Framework.Task;
+import scripts.SPXCowKiller.data.Vars;
+import scripts.SPXCowKiller.framework.Task;
 
 /**
  * Created by Sphiinx on 12/22/2015.
  */
-public class DepositItems extends Task {
+public class DepositItems implements Task {
 
-    public DepositItems(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
         if (Banking.isInBank()) {
             openBank();
@@ -63,14 +58,12 @@ public class DepositItems extends Task {
         }
     }
 
-    @Override
     public String toString(){
         return "Depositing items...";
     }
 
-    @Override
     public boolean validate() {
-        return vars.bankHides && Inventory.getCount("Cowhide") == 28;
+        return Vars.get().bankHides && Inventory.getCount("Cowhide") == 28;
     }
 
 }
