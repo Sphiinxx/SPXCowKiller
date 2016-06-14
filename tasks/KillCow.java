@@ -11,7 +11,7 @@ import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSTile;
 import scripts.SPXCowKiller.data.Vars;
 import scripts.SPXCowKiller.framework.Task;
-import scripts.TribotAPI.game.combat.Combat07;
+import TribotAPI.game.combat.Combat07;
 
 
 /**

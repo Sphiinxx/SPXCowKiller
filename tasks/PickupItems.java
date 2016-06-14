@@ -8,7 +8,7 @@ import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSGroundItem;
 import scripts.SPXCowKiller.data.Vars;
 import scripts.SPXCowKiller.framework.Task;
-import scripts.TribotAPI.game.grounditems.GroundItems07;
+import TribotAPI.game.grounditems.GroundItems07;
 
 import java.util.ArrayList;
 
