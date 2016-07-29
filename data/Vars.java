@@ -1,7 +1,6 @@
 package scripts.SPXCowKiller.data;
 
-
-import org.tribot.api2007.types.RSArea;
+import scripts.SPXCowKiller.data.enums.Location;
 
 /**
  * Created by Sphiinx on 12/24/2015.
@@ -18,25 +17,20 @@ public class Vars {
         vars = null;
     }
 
-    public RSArea area;
+    public boolean bury_bones;
+    public boolean bank_hides;
+    public boolean gui_complete;
+    public boolean out_of_ammo;
+    public boolean should_pickup_item;
+    
+    public int cows_killed;
+    public int bones_looted;
+    public int hides_looted;
+    public int bones_buried;
 
-    public boolean buryBones;
-    public boolean bankHides;
-    public boolean guiComplete;
-    public boolean outOfArrows;
-    public boolean stopScript;
+    public String food_name;
 
-    public int startLevels;
-    public int startExp;
-    public int eatPercentage = 50;
-    public int cowsKilled;
-    public int getGainedExp;
-    public int getGainedLevels;
-    public double version;
-    public long timeRan;
-
-    public String status;
-    public String foodName;
+    public Location location;
 
 }
 

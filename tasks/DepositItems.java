@@ -1,69 +1,44 @@
 package scripts.SPXCowKiller.tasks;
 
 import org.tribot.api.General;
-import org.tribot.api.Timing;
-import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
+import org.tribot.api2007.types.RSItem;
 import scripts.SPXCowKiller.data.Vars;
-import scripts.SPXCowKiller.framework.Task;
+import scripts.TaskFramework.framework.Task;
+import scripts.TribotAPI.game.banking.Banking07;
+import scripts.TribotAPI.game.timing.Timing07;
 
 /**
- * Created by Sphiinx on 12/22/2015.
+ * Created by Sphiinx on 7/11/2016.
  */
 public class DepositItems implements Task {
 
-    public void execute() {
-        if (Banking.isInBank()) {
-            openBank();
-        } else {
-            walkToBank();
-        }
-    }
 
-    private void openBank() {
-            if (Banking.isBankScreenOpen()) {
-                if (Banking.depositAll() > 0) {
-                    Timing.waitCondition(new Condition() {
-                        @Override
-                        public boolean active() {
-                            General.sleep(100);
-                            return !Inventory.isFull();
-                        }
-                    }, General.random(750, 1000));
-                }
-            } else {
-                if (Banking.openBank()) {
-                    Timing.waitCondition(new Condition() {
-                        @Override
-                        public boolean active() {
-                            General.sleep(100);
-                            return Banking.isBankScreenOpen();
-                        }
-                    }, General.random(750, 1000));
-                }
-            }
-    }
-
-    private void walkToBank() {
-        if (WebWalking.walkToBank()) {
-            Timing.waitCondition(new Condition() {
-                @Override
-                public boolean active() {
-                    General.sleep(100);
-                    return Banking.isInBank();
-                }
-            }, General.random(750, 1000));
-        }
-    }
-
-    public String toString(){
-        return "Depositing items...";
-    }
-
+    @Override
     public boolean validate() {
-        return Vars.get().bankHides && Inventory.getCount("Cowhide") == 28;
+        return Inventory.isFull() && Inventory.getCount(Vars.get().food_name) <= 0;
+    }
+
+    @Override
+    public void execute() {
+        if (Banking07.isBankItemsLoaded()) {
+            RSItem[] inventory_cache = Inventory.getAll();
+            if (Banking.deposit(0, "Cowhide"))
+                Timing07.waitCondition(() -> inventory_cache.length != Inventory.getAll().length, General.random(1500, 2000));
+        } else {
+            if (!Banking07.isInBank())
+                WebWalking.walkToBank();
+
+            if (Banking.openBank())
+                Timing07.waitCondition(Banking07::isBankItemsLoaded, General.random(1500, 2000));
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Going to deposit items";
     }
 
 }

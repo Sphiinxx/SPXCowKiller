@@ -1,61 +1,59 @@
 package scripts.SPXCowKiller.tasks;
 
 import org.tribot.api.General;
-import org.tribot.api.Timing;
-import org.tribot.api.types.generic.Condition;
-import org.tribot.api2007.*;
-import org.tribot.api2007.Player;
+import org.tribot.api2007.Inventory;
 import org.tribot.api2007.types.RSGroundItem;
+import org.tribot.api2007.types.RSItem;
 import scripts.SPXCowKiller.data.Vars;
-import scripts.SPXCowKiller.framework.Task;
+import scripts.TaskFramework.framework.Task;
+import scripts.TribotAPI.game.combat.Combat07;
 import scripts.TribotAPI.game.grounditems.GroundItems07;
-
-import java.util.ArrayList;
+import scripts.TribotAPI.game.timing.Timing07;
 
 /**
- * Created by Sphiinx on 12/21/2015.
+ * Created by Sphiinx on 7/11/2016.
  */
 public class PickupItems implements Task {
 
-    private String[] pickupItems;
-    private RSGroundItem[] groundItems;
 
-    public PickupItems() {
-        ArrayList<String> itemList = new ArrayList<>();
-        if (Vars.get().buryBones) {
-            itemList.add("Bones");
-        }
-        if (Vars.get().bankHides) {
-            itemList.add("Cowhide");
-        }
-        pickupItems = new String[itemList.size()];
-        pickupItems = itemList.toArray(pickupItems);
+    @Override
+    public boolean validate() {
+        return (Vars.get().bury_bones || Vars.get().bank_hides) && Vars.get().should_pickup_item && !Combat07.isInCombat() && !Inventory.isFull();
     }
 
     @Override
     public void execute() {
-        for (RSGroundItem item : groundItems) {
-            if (GroundItems07.pickUpGroundItem(item)) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return Player.isMoving();
-                    }
-                }, General.random(1000, 1200));
+        if (Vars.get().bury_bones) {
+            RSGroundItem item_to_pickup = GroundItems07.getGroundItem("Bones");
+            if (pickupItem(item_to_pickup)) {
+                Vars.get().bones_looted++;
+            }
+        } else {
+            RSGroundItem item_to_pickup = GroundItems07.getGroundItem("Cowhide");
+            if (pickupItem(item_to_pickup)) {
+                Vars.get().hides_looted++;
             }
         }
     }
 
+    private boolean pickupItem(RSGroundItem item_to_pickup) {
+        if (item_to_pickup == null)
+            return false;
+
+        RSItem[] item_cache = Inventory.getAll();
+        if (GroundItems07.pickUpGroundItem(item_to_pickup))
+            if (Timing07.waitCondition(() -> item_cache.length != Inventory.getAll().length, General.random(1500, 2000))) {
+                Vars.get().should_pickup_item = false;
+                return true;
+            }
+
+        return false;
+    }
+
     @Override
     public String toString() {
-        return "Picking up items...";
+        return "Picking up items";
     }
 
-    @Override
-    public boolean validate() {
-        groundItems = GroundItems.findNearest(pickupItems);
-        return !Player.getRSPlayer().isInCombat() && groundItems.length > 0 && groundItems[0].getPosition().distanceTo(Player.getPosition()) <= 4 && !Inventory.isFull();
-    }
 }
-
 
