@@ -1,4 +1,4 @@
-package scripts.SPXCowKiller;
+package scripts.spxcowkiller;
 
 import org.tribot.api.General;
 

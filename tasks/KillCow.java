@@ -1,16 +1,15 @@
-package scripts.SPXCowKiller.tasks;
+package scripts.spxcowkiller.tasks;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api2007.Player;
-import org.tribot.api2007.types.RSCharacter;
 import org.tribot.api2007.types.RSNPC;
-import scripts.SPXCowKiller.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.combat.Combat07;
-import scripts.TribotAPI.game.npcs.NPCs07;
-import scripts.TribotAPI.game.timing.Timing07;
-import scripts.TribotAPI.game.walking.Walking07;
+import scripts.spxcowkiller.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.combat.Combat07;
+import scripts.tribotapi.game.npcs.NPCs07;
+import scripts.tribotapi.game.timing.Timing07;
+import scripts.tribotapi.game.walking.Walking07;
 
 /**
  * Created by Sphiinx on 7/11/2016.

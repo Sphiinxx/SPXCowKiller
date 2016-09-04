@@ -1,13 +1,13 @@
-package scripts.SPXCowKiller.tasks;
+package scripts.spxcowkiller.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSNPC;
-import scripts.SPXCowKiller.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.npcs.NPCs07;
+import scripts.spxcowkiller.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.npcs.NPCs07;
 
 /**
  * Created by Sphiinx on 7/11/2016.

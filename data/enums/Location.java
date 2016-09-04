@@ -1,4 +1,4 @@
-package scripts.SPXCowKiller.data.enums;
+package scripts.spxcowkiller.data.enums;
 
 import org.tribot.api2007.types.RSTile;
 

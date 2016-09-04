@@ -1,14 +1,14 @@
-package scripts.SPXCowKiller.tasks;
+package scripts.spxcowkiller.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSTile;
-import scripts.SPXCowKiller.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TaskFramework.framework.TaskManager;
-import scripts.TribotAPI.game.combat.Combat07;
-import scripts.TribotAPI.util.Logging;
+import scripts.spxcowkiller.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.task_framework.framework.TaskManager;
+import scripts.tribotapi.game.combat.Combat07;
+import scripts.tribotapi.util.Logging;
 
 /**
  * Created by Sphiinx on 7/11/2016.

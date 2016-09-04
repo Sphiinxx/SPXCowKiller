@@ -1,6 +1,6 @@
-package scripts.SPXCowKiller.data;
+package scripts.spxcowkiller.data;
 
-import scripts.SPXCowKiller.data.enums.Location;
+import scripts.spxcowkiller.data.enums.Location;
 
 /**
  * Created by Sphiinx on 12/24/2015.

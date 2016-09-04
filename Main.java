@@ -1,19 +1,21 @@
-package scripts.SPXCowKiller;
+package scripts.spxcowkiller;
 
 import com.allatori.annotations.DoNotRename;
 import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.*;
-import scripts.SPXCowKiller.data.Vars;
-import scripts.SPXCowKiller.tasks.*;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.AbstractScript;
-import scripts.TribotAPI.game.utiity.Utility07;
-import scripts.TribotAPI.gui.GUI;
-import scripts.TribotAPI.painting.paint.Calculations;
-import scripts.TribotAPI.painting.paint.SkillData;
-import scripts.TribotAPI.painting.paint.enums.DataPosition;
+import scripts.spxcowkiller.data.Vars;
+import scripts.spxcowkiller.tasks.*;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.AbstractScript;
+import scripts.tribotapi.game.utiity.Utility07;
+import scripts.tribotapi.gui.GUI;
+import scripts.tribotapi.painting.paint.Calculations;
+import scripts.tribotapi.painting.paint.SkillData;
+import scripts.tribotapi.painting.paint.enums.DataPosition;
 
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by Sphiinx on 12/21/2015.
@@ -26,7 +28,13 @@ public class Main extends AbstractScript implements Painting, EventBlockingOverr
 
     @Override
     protected GUI getGUI() {
-        return new GUI(getClass().getResource("GUI.fxml"));
+        try {
+            return new GUI(new URL("http://spxscripts.com/spxcowkiller/GUI.fxml"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
