@@ -11,10 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.tribot.api.Timing;
+import scripts.generalapi.PostRequest;
 import scripts.spxcowkiller.data.Vars;
 import scripts.spxcowkiller.data.enums.Location;
 import scripts.tribotapi.Client;
-import scripts.tribotapi.PostRequest;
 import scripts.tribotapi.gui.AbstractGUIController;
 import scripts.tribotapi.util.Utility;
 
