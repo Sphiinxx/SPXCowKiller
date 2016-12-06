@@ -23,7 +23,7 @@ import java.net.URL;
  */
 @ScriptManifest(authors = "Sphiinx", category = "Combat", name = "[SPX] Cow Killer", version = 1.6)
 @DoNotRename
-public class Main extends AbstractScript implements Painting, EventBlockingOverride, MessageListening07, Ending {
+public class Main extends AbstractScript implements Painting, MousePainting, MouseSplinePainting, EventBlockingOverride, MessageListening07, Ending {
 
 
     @Override
